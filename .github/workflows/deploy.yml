@@ -24,3 +24,24 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           docker build -t $DOCKER_USER/$REPOSITORY:$GITHUB_SHA .
           docker push $DOCKER_USER/$REPOSITORY:$GITHUB_SHA
+          sed -i -e 's/<image>/$DOCKER_USER/$REPOSITORY:$GITHUB_SHA/g' docker-compose.yml
+
+      - name: Deploy Manifest
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
+          port: 22
+          source: "docker-compose.yml"
+          target: ~/app/${{ github.event.repository.name }}/
+          strip_components: 1
+
+      - name: Rollout Application
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST_PROD }}
+          username: ${{ secrets.REMOTE_USER_PROD }}
+          password: ${{ secrets.REMOTE_PASSWORD_PROD }}
+          port: 22
+          script: cd  && docker-compose -f ~/app/${{ github.event.repository.name }}/docker-compose.yml up -d
