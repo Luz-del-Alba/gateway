@@ -2,7 +2,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: customer
-          uri: http://localhost:8081
+        - id: policy
+          uri: http://policy:8081/
           predicates:
-            - Path=/customer
+            - Path=/policy/**
