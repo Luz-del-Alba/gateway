@@ -16,7 +16,7 @@ spring:
     gateway:
       routes:
         - id: policy
-          uri: http://localhost:8081/
+          uri: http://policy:8081/
           predicates:
             - Path=/policy/**
       httpclient:
