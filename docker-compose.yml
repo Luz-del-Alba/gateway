@@ -2,8 +2,9 @@ version: "3.9"
 services:
   gateway:
     image: <image>
+    restart: always
     ports:
       - "8080:8080"
     deploy:
       restart_policy:
-        condition: always
+        condition: any
