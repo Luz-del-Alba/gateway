@@ -19,3 +19,7 @@ spring:
           uri: http://policy:8081/
           predicates:
             - Path=/policy/**
+        - id: rate
+          uri: http://rate:8083/
+          predicates:
+            - Path=/rate/**
