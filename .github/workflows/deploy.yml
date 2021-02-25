@@ -1,0 +1,26 @@
+on:
+  push:
+    branches: [ master ]
+
+name: Deploy
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          IMAGE_TAG: ${{ github.sha }}
+          REPOSITORY: ${{ github.event.repository.name }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+          docker build -t $DOCKER_USER/$REPOSITORY:$GITHUB_SHA .
+          docker push $DOCKER_USER/$REPOSITORY:$GITHUB_SHA
