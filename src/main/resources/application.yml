@@ -1,6 +1,6 @@
 server:
   ssl:
-    key-store: classpath:keystore.p12
+    key-store: classpath:certificate/keystore.p12
     key-store-password: password
     key-store-type: PKCS12
     key-alias: tomcat
@@ -14,6 +14,6 @@ spring:
     gateway:
       routes:
         - id: policy
-          uri: http://policy:8081/
+          uri: http://localhost:8081/
           predicates:
             - Path=/policy/**
