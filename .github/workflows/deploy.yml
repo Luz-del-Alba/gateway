@@ -41,8 +41,8 @@ jobs:
       - name: Rollout Application
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.REMOTE_HOST_PROD }}
-          username: ${{ secrets.REMOTE_USER_PROD }}
-          password: ${{ secrets.REMOTE_PASSWORD_PROD }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.REMOTE_PASSWORD }}
           port: 22
           script: docker-compose -f /home/${{ secrets.REMOTE_USER }}/app/${{ github.event.repository.name }}/docker-compose.yml up -d
