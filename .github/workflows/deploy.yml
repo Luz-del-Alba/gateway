@@ -48,5 +48,5 @@ jobs:
           script: |
             IMAGE="${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}:${{ github.sha }}"
             cd /home/${{ secrets.REMOTE_USER }}/app/${{ github.event.repository.name }}/
-            sed -i -e 's/<image>/'"IMAGE"'/g' docker-compose.yml
+            sed -i -e 's/<image>/'"$IMAGE"'/g' docker-compose.yml
             docker-compose up -d
