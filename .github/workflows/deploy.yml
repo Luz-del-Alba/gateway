@@ -21,10 +21,11 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           REPOSITORY: ${{ github.event.repository.name }}
         run: |
+          IMAGE=$DOCKER_USER/$REPOSITORY:$GITHUB_SHA
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          docker build -t $DOCKER_USER/$REPOSITORY:$GITHUB_SHA .
-          docker push $DOCKER_USER/$REPOSITORY:$GITHUB_SHA
-          sed -i -e 's/<image>/$DOCKER_USER/$REPOSITORY:$GITHUB_SHA/g' docker-compose.yml
+          docker build -t $IMAGE .
+          docker push $IMAGE
+          sed -i -e 's/<image>/$IMAGE/g' docker-compose.yml
 
       - name: Deploy Manifest
         uses: appleboy/scp-action@master
