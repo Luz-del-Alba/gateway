@@ -25,7 +25,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
           docker build -t $IMAGE .
           docker push $IMAGE
-          sed -i -e 's/<image>/$IMAGE/g' docker-compose.yml
+          sed -i -e "s|<image>|$IMAGE|g" docker-compose.yml
 
       - name: Deploy Manifest
         uses: appleboy/scp-action@master
@@ -46,7 +46,4 @@ jobs:
           password: ${{ secrets.REMOTE_PASSWORD }}
           port: 22
           script: |
-            IMAGE="${{ secrets.DOCKER_USER }}/${{ github.event.repository.name }}:${{ github.sha }}"
-            cd /home/${{ secrets.REMOTE_USER }}/app/${{ github.event.repository.name }}/
-            sed -i -e "s|<image>|$IMAGE|g" docker-compose.yml
-            docker-compose up -d
+            docker-compose -f /home/${{ secrets.REMOTE_USER }}/app/${{ github.event.repository.name }}/docker-compose.yml up -d
