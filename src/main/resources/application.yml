@@ -6,6 +6,8 @@ server:
     key-alias: tomcat
     key-password: password
     enabled: true
+    trust-store: classpath:certificate/keystore.p12
+    trust-store-password: password
   port: 8443
   http2:
     enabled: false
