@@ -6,5 +6,4 @@ RUN gradle build --no-daemon
 FROM openjdk:11.0.7-jre-slim
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/app.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
