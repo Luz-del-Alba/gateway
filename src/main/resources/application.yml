@@ -19,6 +19,3 @@ spring:
           uri: http://policy:8081/
           predicates:
             - Path=/policy/**
-      httpclient:
-        ssl:
-          useInsecureTrustManager: true
