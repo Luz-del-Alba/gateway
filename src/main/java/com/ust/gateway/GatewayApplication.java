@@ -14,7 +14,7 @@ public class GatewayApplication {
     }
 
     @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+    public RouteLocator locator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("backend", r -> r.path("/get")
                         .uri("http://localhost"))
