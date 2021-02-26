@@ -21,9 +21,6 @@ spring:
             allowedMethods:
               - GET
               - POST
-              - PUT
-              - DELETE
-              - OPTIONS
       routes:
         - id: policy
           uri: http://policy:8081/
