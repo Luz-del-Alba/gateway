@@ -18,9 +18,13 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins: "*"
+            allowedHeaders:
+              - content-type
             allowedMethods:
               - GET
               - POST
+              - PUT
+              - OPTIONS
       routes:
         - id: policy
           uri: http://policy:8081/
